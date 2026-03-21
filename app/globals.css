@@ -1,26 +1,220 @@
-@import "tailwindcss";
+/* ── 1. Google Fonts ────────────────────────────────────────── */
+@import url('https://fonts.googleapis.com/css2?family=Jost:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400&display=swap');
 
+/* ── 2. mir.no layout CSS is loaded via <link> in layout.tsx ─ */
+
+/* ── 3. Font override: remap Nimbus Sans → Jost ────────────── */
+/* Register "Nimbus Sans" as Jost so mir.css font-family refs work */
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --wa-font: 'Jost', Arial, sans-serif;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+* {
+  font-family: var(--wa-font) !important;
+  -webkit-font-smoothing: antialiased;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+/* ── 4. WaArchi-specific overrides ─────────────────────────── */
+html {
+  margin: 0;
+  padding: 0;
+  background: #fff;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  margin: 0;
+  padding: 0;
+  background: #fff;
+}
+
+/* Logo sizing */
+.wa-logo {
+  width: 68px;
+  display: block;
+  margin: 0 auto;
+}
+
+/* Nav: fixed 50px from left edge, hard shadow */
+.nav.dropdown.smaller.big {
+  left: 50px !important;
+  margin-left: 0 !important;
+  padding-top: 28px !important;
+  padding-bottom: 28px !important;
+  box-shadow: -4px 4px 0px rgba(0, 0, 0, 0.95);
+  align-items: center !important;
+}
+
+/* Space between logo and first nav link */
+.new-logo.w-inline-block {
+  margin-bottom: 20px !important;
+}
+
+/* Project grid + intro text: max 1500px centered */
+.work-section.top.work-new {
+  max-width: 1500px;
+  margin-left: auto !important;
+  margin-right: auto !important;
+}
+
+.intro-text {
+  width: 100% !important;
+  max-width: 100% !important;
+  margin-left: 0 !important;
+  margin-right: 0 !important;
+  text-align: center !important;
+}
+
+/* Tighten intro-text gap */
+.intro-text {
+  height: auto !important;
+  min-height: 0 !important;
+  padding: 2.5svh 2svw;
+}
+
+/* Carousel: infinite scroll animation */
+@keyframes scroll-left {
+  0%   { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+.carousel-inner {
+  overflow: hidden;
+}
+
+.carousel-track {
+  animation: scroll-left 40s linear infinite;
+  width: max-content;
+}
+
+.carousel-track:hover {
+  animation-play-state: paused;
+}
+
+/* Carousel card */
+.carousel-card {
+  flex-shrink: 0;
+  height: 100%;
+  position: relative;
+  overflow: hidden;
+}
+
+.carousel-card img {
+  height: 100%;
+  width: auto;
+  object-fit: cover;
+  display: block;
+}
+
+.carousel-card-label {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 24px 16px 12px;
+  background: linear-gradient(to top, rgba(0,0,0,0.6) 0%, transparent 100%);
+  color: #fff;
+}
+
+/* Work item aspect ratio */
+.work-link {
+  aspect-ratio: 1/1;
+}
+
+.work-link.big {
+  aspect-ratio: 1/1;
+}
+
+/* Project image fills container */
+.project-image-main {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Hover zoom */
+.work-link:hover .project-image-main {
+  transform: scale(1.03);
+  transition: transform 0.6s ease;
+}
+
+.project-image-main {
+  transition: transform 0.6s ease;
+}
+
+/* Studio / Kontakt page layout */
+.wa-page {
+  padding: 8svh 4svw;
+  max-width: 680px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.wa-page h1 {
+  font-size: clamp(2rem, 4vw, 3.5rem);
+  font-weight: 600;
+  line-height: 1.1;
+  margin: 0 0 2rem;
+  letter-spacing: -0.02em;
+}
+
+.wa-page p {
+  font-size: 1rem;
+  line-height: 1.75;
+  color: #444;
+  margin-bottom: 1.25rem;
+}
+
+.wa-page a {
+  color: #111;
+  font-weight: 600;
+  text-decoration: none;
+  border-bottom: 1px solid #111;
+  padding-bottom: 1px;
+}
+
+/* Project detail page */
+.wa-project-header {
+  padding: 6svh 4svw 3svh;
+}
+
+.wa-project-header h1 {
+  font-size: clamp(1.8rem, 4vw, 3rem);
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  margin: 1rem 0 0.5rem;
+}
+
+.wa-project-meta {
+  font-size: 0.75rem;
+  color: #888;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  margin-bottom: 1rem;
+}
+
+.wa-back {
+  font-size: 0.72rem;
+  color: #999;
+  text-decoration: none;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.wa-project-images img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+/* Intro text heading */
+.wa-intro-heading {
+  font-size: clamp(1.1rem, 2vw, 1.5rem);
+  font-weight: 700;
+  line-height: 1.4;
+  letter-spacing: -0.01em;
+  text-align: center;
+  margin-left: auto !important;
+  margin-right: auto !important;
 }
