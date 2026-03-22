@@ -13,17 +13,13 @@ export default function HomePage() {
       {/* Scrolling carousel — mirrors mir.no top strip */}
       <Carousel />
 
-      {/* Intro tagline */}
-      <div className="intro-text">
-        <p className="wa-intro-heading">
-          WaArchi bedeutet Qualität.
-          <br />
-          Wir erstellen fotorealistische Architekturvisualisierungen.
-        </p>
+      {/* Divider + grid share the same column so lines align with image edges */}
+      <div className="wa-grid-column">
+        <div className="wa-divider">
+          <span className="wa-divider-label">WaArchi Studio</span>
+        </div>
+        <WorkGrid />
       </div>
-
-      {/* 12-column project grid */}
-      <WorkGrid />
     </>
   );
 }
