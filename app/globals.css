@@ -557,3 +557,153 @@ body {
   outline: 1px solid #111;
 }
 
+/* ══════════════════════════════════════════════════════════════════
+   MOBILE / RESPONSIVE  (≤767px)
+   The desktop layout is built around a fixed left sidebar nav. On
+   phones we flip that nav into a top bar and undo the sidebar-clearance
+   paddings so content can use the full width.
+   ══════════════════════════════════════════════════════════════════ */
+@media (max-width: 767px) {
+
+  /* Push page content clear of the fixed top bar */
+  body {
+    padding-top: 90px;
+  }
+
+  /* ── Nav → top bar (inline row, same bordered look) ────────────── */
+  /* mir.css hides .nav.dropdown at this breakpoint — force it back. */
+  .nav.dropdown.smaller.big {
+    display: flex !important;
+    top: 0 !important;
+    left: 0 !important;
+    right: 0 !important;
+    width: 100% !important;
+    margin: 0 !important;
+    flex-direction: row !important;
+    flex-wrap: wrap !important;
+    justify-content: center !important;
+    align-items: center !important;
+    row-gap: 4px;
+    column-gap: 18px;
+    padding: 12px 16px !important;
+    border: none !important;
+    border-bottom: 1px solid #111 !important;
+  }
+
+  /* Logo on its own centered row above the links */
+  .nav.dropdown.smaller.big .new-logo.w-inline-block {
+    flex: 0 0 100%;
+    display: flex;
+    justify-content: center;
+    margin-bottom: 8px !important;
+  }
+
+  .wa-logo {
+    width: 46px;
+  }
+
+  /* Links in a single inline row */
+  .nav.dropdown.smaller.big .link-5.big {
+    margin-bottom: 0 !important;
+    font-size: 0.9rem !important;
+    line-height: 1 !important;
+  }
+
+  /* ── Collapse the 220px sidebar-clearance paddings ─────────────── */
+  .wa-studio,
+  .wa-prozess-page {
+    padding-left: 5vw !important;
+    padding-right: 5vw !important;
+    padding-top: 4svh !important;
+  }
+
+  .wa-project-header {
+    padding-left: 5vw !important;
+    padding-right: 5vw !important;
+  }
+
+  /* ── Home: work grid 2-up, ignoring the desktop 12-col spans ───── */
+  .work_list.new {
+    grid-template-columns: 1fr 1fr !important;
+    grid-column-gap: 8px !important;
+    grid-row-gap: 8px !important;
+  }
+
+  .work_item {
+    grid-column: auto !important;
+  }
+
+  /* Carousel: cap height so one strip doesn't fill the screen */
+  .carousel-inner {
+    height: 34svh !important;
+  }
+
+  /* ── Studio ────────────────────────────────────────────────────── */
+  .wa-studio-hero {
+    grid-template-columns: 1fr !important;
+    gap: 3svh !important;
+    padding-bottom: 4svh !important;
+  }
+
+  .wa-studio-hero-heading {
+    font-size: clamp(3rem, 16vw, 5rem) !important;
+  }
+
+  .wa-team-grid {
+    grid-template-columns: 1fr !important;
+  }
+
+  .wa-studio-cta {
+    flex-direction: column !important;
+    align-items: flex-start !important;
+    gap: 1.25rem !important;
+  }
+
+  /* ── Prozess ───────────────────────────────────────────────────── */
+  .wa-prozess-step {
+    grid-template-columns: 1fr !important;
+    gap: 2svh !important;
+  }
+
+  /* Keep the image above the text even on "reverse" rows */
+  .wa-prozess-step--reverse .wa-prozess-image-wrap {
+    order: 0 !important;
+  }
+
+  .wa-prozess-step--reverse .wa-prozess-text {
+    order: 1 !important;
+  }
+
+  .wa-prozess-gif-wrap {
+    margin-bottom: 6svh !important;
+  }
+
+  /* Fixed 500px hero GIFs → fluid squares that never overflow */
+  .wa-prozess-hero-gif,
+  .wa-kontakt-hero-gif {
+    width: min(500px, 78vw) !important;
+    height: auto !important;
+    aspect-ratio: 1 / 1;
+  }
+
+  /* ── Kontakt: drop the desktop overlap trick ───────────────────── */
+  .wa-kontakt-page .wa-prozess-gif-wrap {
+    margin-top: 0 !important;
+    margin-bottom: 2svh !important;
+  }
+
+  /* ── Project detail: keep the sticky bar below the top nav ─────── */
+  .wa-project-sticky {
+    top: 94px !important;
+    min-width: 0 !important;
+    max-width: 88vw;
+  }
+}
+
+/* Small phones: single-column, full-bleed work images */
+@media (max-width: 479px) {
+  .work_list.new {
+    grid-template-columns: 1fr !important;
+  }
+}
+

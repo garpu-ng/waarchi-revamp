@@ -20,21 +20,42 @@ export default function Nav() {
     const nav = navRef.current;
     if (!nav) return;
 
-    // Capture nav's natural vertical center before any scroll
-    const rect = nav.getBoundingClientRect();
-    const naturalCenter = rect.top + rect.height / 2;
+    // Below this width the nav is a static top bar — never translate it.
+    const mobile = window.matchMedia("(max-width: 767px)");
+
+    // Nav's natural vertical center, measured with the transform neutralised.
+    let naturalCenter = 0;
+    const measure = () => {
+      const prev = nav.style.transform;
+      nav.style.transform = "none";
+      const rect = nav.getBoundingClientRect();
+      naturalCenter = rect.top + rect.height / 2;
+      nav.style.transform = prev;
+    };
+    measure();
 
     const onScroll = () => {
-      if (window.scrollY > 30) {
-        const viewportCenter = window.innerHeight / 2;
-        setTranslateY(viewportCenter - naturalCenter);
+      if (mobile.matches) {
+        setTranslateY(0);
+      } else if (window.scrollY > 30) {
+        setTranslateY(window.innerHeight / 2 - naturalCenter);
       } else {
         setTranslateY(0);
       }
     };
 
+    const onResize = () => {
+      measure();
+      onScroll();
+    };
+
     window.addEventListener("scroll", onScroll, { passive: true });
-    return () => window.removeEventListener("scroll", onScroll);
+    window.addEventListener("resize", onResize, { passive: true });
+    onScroll();
+    return () => {
+      window.removeEventListener("scroll", onScroll);
+      window.removeEventListener("resize", onResize);
+    };
   }, []);
 
   return (
